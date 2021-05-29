@@ -3,10 +3,6 @@
 const DbService = require('moleculer-db');
 const SqlAdapter = require('moleculer-db-adapter-sequelize');
 const Sequelize = require('sequelize');
-console.log(process.env.POSTGRESQL_HOST);
-console.log(process.env.POSTGRESQL_USER);
-console.log(process.env.POSTGRESQL_PASSWORD);
-console.log(process.env.POSTGRESQL_HOST);
 
 module.exports = {
     name: "db.user",
