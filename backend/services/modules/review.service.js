@@ -24,6 +24,7 @@ module.exports = {
 			},
 			async handler(ctx) {
 				return ctx.call("db.performance_review.list", {
+					populate: ["userDetails", "reviewerDetails"],
 					// sort: "-createdAt",
 					page: ctx.params.page,
 					pageSize: ctx.params.pageSize
@@ -64,22 +65,22 @@ module.exports = {
 		},
 
 
-		addUserForReview: {
-			params: {
-				userId: { type: "number" },
-			},
-			async handler(ctx) {
-				return ctx.call("db.performance_review.find", {
-					query: {
-						reviewerId: ctx.params.userId
-					},
-				}).then((result) => {
-					console.log("result--------------------------", result)
-				}).catch((err) => {
-					return ({ status: "error", mesage: "Sorry, user list failed", result: err });
-				});;
-			}
-		},
+		// reviewerUserList: {
+		// 	params: {
+		// 		userId: { type: "number" },
+		// 	},
+		// 	async handler(ctx) {
+		// 		return ctx.call("db.performance_review.find", {
+		// 			query: {
+		// 				reviewerId: ctx.params.userId
+		// 			},
+		// 		}).then((result) => {
+		// 			console.log("result--------------------------", result)
+		// 		}).catch((err) => {
+		// 			return ({ status: "error", mesage: "Sorry, user list failed", result: err });
+		// 		});;
+		// 	}
+		// },
 
 		create: {
 			params: {
@@ -114,7 +115,6 @@ module.exports = {
 				isSubmitted: { type: "boolean" }
 			},
 			async handler(ctx) {
-				ctx.params.id = ctx.params.reviewerId;
 				return ctx.call('db.performance_review.update', ctx.params).then((result) => {
 					if (result)
 						return ({ status: "success", mesage: "Review completed successfully", result: result });
@@ -132,7 +132,6 @@ module.exports = {
 				reviewId: { type: "string" }
 			},
 			async handler(ctx) {
-				ctx.params.isDeleted = true;
 				return ctx.call('db.performance_review.remove', ctx.params).then((result) => {
 					if (result)
 						return ({ status: "success", mesage: "review deleted successfully", result: result });
@@ -149,7 +148,6 @@ module.exports = {
 				reviewId: { type: "string" }
 			},
 			async handler(ctx) {
-				ctx.params.isDeleted = true;
 				return ctx.call('db.performance_review.get', ctx.params).then((result) => {
 					if (result)
 						return ({ status: "success", mesage: "review details ", result: result });

@@ -2,7 +2,7 @@ import axios from 'axios';
 const api = 'http://localhost:3000/api/v1/';
 
 export const getReviewList = (data) => {
-    return axios.post(api + 'review/list', data);
+    return axios.post(api + 'review/adminlist', data);
 }
 
 // export const createReview = (data) => {

@@ -24,7 +24,10 @@ module.exports = {
 			},
 			async handler(ctx) {
 				return ctx.call("db.user.list", {
-					// sort: "-createdAt",
+					sort: "userRole",
+					query:{
+						isDeleted: false
+					},
 					page: ctx.params.page,
 					pageSize: ctx.params.pageSize
 				}).then((result) => {
@@ -76,7 +79,6 @@ module.exports = {
 				age: { type: "number" }
 			},
 			async handler(ctx) {
-				ctx.params.id = ctx.params.userId;
 				return ctx.call('db.user.update', ctx.params).then((result) => {
 					if (result)
 						return ({ status: "success", mesage: "user updated successfully", result: result });
@@ -94,8 +96,6 @@ module.exports = {
 				userId: { type: "string" }
 			},
 			async handler(ctx) {
-				ctx.params.isDeleted = true;
-				ctx.params.id = ctx.params.userId;
 				return ctx.call('db.user.remove', ctx.params).then((result) => {
 					return ({ status: "success", mesage: "user deleted successfully", result: result });
 				}).catch((error) => {
@@ -109,7 +109,6 @@ module.exports = {
 				userId: { type: "string" }
 			},
 			async handler(ctx) {
-				ctx.params.isDeleted = true;
 				return ctx.call('db.user.get', ctx.params).then((result) => {
 					if (result)
 						return ({ status: "success", mesage: "user details ", result: result });

@@ -7,7 +7,14 @@ const Sequelize = require('sequelize');
 module.exports = {
     name: "db.user",
     mixins: [DbService],
-    settings: {},
+    settings: {
+        idField: "userId",
+        //populates: null,
+        pageSize: 10,
+        maxPageSize: 100,
+        maxLimit: -1,
+        entityValidator: {}
+    },
     dependencies: [],
     adapter: new SqlAdapter(process.env.SQL_CONNECTION_STRING, {
         logging: false,

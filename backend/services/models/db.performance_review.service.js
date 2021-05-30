@@ -8,26 +8,28 @@ module.exports = {
     name: "db.performance_review",
     mixins: [DbService],
     settings: {
-        idField: "statId",
+        idField: "reviewId",
+        //populates: null,
+        pageSize: 10,
+        maxPageSize: 100,
+        maxLimit: -1,
+        entityValidator: {},
         populates: {
             userDetails: {
                 field: "userId",
-                action: "v1.db.user.get",
+                action: "db.user.get",
                 params: {
                     fields: ["name", "username", "email"]
                 }
             },
             reviewerDetails: {
                 field: "reviewerId",
-                action: "v1.db.user.get",
+                action: "db.user.get",
                 params: {
                     fields: ["name", "username", "email"]
                 }
             }
-        },
-        pageSize: 10,
-        maxPageSize: 100,
-        maxLimit: -1,
+        }
     },
     dependencies: [],
     adapter: new SqlAdapter(process.env.SQL_CONNECTION_STRING, {

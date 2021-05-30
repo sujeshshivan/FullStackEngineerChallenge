@@ -123,7 +123,7 @@ function Landing() {
       render: (text, record) => (
         <Space size="middle">
           <Button type="primary" onClick={() => { showModal("edit", record) }}>Edit</Button>
-          <Button type="danger" onClick={() => { onDelete(record) }}>Delete</Button>
+          {record.userRole !== 1 && <Button type="danger" onClick={() => { onDelete(record) }}>Delete</Button>}
         </Space>
       ),
     },
@@ -154,7 +154,7 @@ function Landing() {
           draggable: true,
           progress: undefined,
         });
-
+        setIsModalVisible(false);
       }).catch((err) => {
         toast.success('User not updated. something went wrong ', {
           position: "top-center",
@@ -179,6 +179,7 @@ function Landing() {
           draggable: true,
           progress: undefined,
         });
+        setIsModalVisible(false);
       }).catch((err) => {
         toast.success('User not added. something went wrong ', {
           position: "top-center",
@@ -192,7 +193,6 @@ function Landing() {
 
       });
     }
-    setIsModalVisible(false);
   };
 
   useEffect(() => {
@@ -270,8 +270,8 @@ function Landing() {
       <PageHeader
         title="Users"
         extra={[
-          <Button key="3" onClick={() => { localStorage.clear(); history.push("/admin-landing"); }}>Users</Button>,
-          <Button key="2" onClick={() => { localStorage.clear(); history.push("/review-add"); }}>Performance</Button>,
+          <Button key="3" onClick={() => { history.push("/admin-landing"); }}>Users</Button>,
+          <Button key="2" onClick={() => { history.push("/review-add"); }}>Performance</Button>,
           <Button key="1" type="primary" onClick={() => { localStorage.clear(); history.push("/login"); }}>Logout</Button>,
         ]}
       >

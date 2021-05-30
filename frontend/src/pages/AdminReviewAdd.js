@@ -78,8 +78,8 @@ function AdminReviewAdd() {
       <PageHeader
         title="Review"
         extra={[
-          <Button key="3" onClick={() => { localStorage.clear(); history.push("/admin-landing"); }}>Users</Button>,
-          <Button key="2" onClick={() => { localStorage.clear(); history.push("/review-add"); }}>Performance</Button>,
+          <Button key="3" onClick={() => { history.push("/admin-landing"); }}>Users</Button>,
+          <Button key="2" onClick={() => { history.push("/review-add"); }}>Performance</Button>,
           <Button key="1" type="primary" onClick={() => { localStorage.clear(); history.push("/login"); }}>Logout</Button>,
         ]}
       >
