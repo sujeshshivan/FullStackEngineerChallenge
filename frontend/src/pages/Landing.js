@@ -113,7 +113,7 @@ function Landing() {
   }, [])
 
   const getUserListByPage = (params = {}) => {
-    seInitLoading(false);
+    seInitLoading(true);
     seUserList([]);
     getUserList({
       "page": params?.pagination?.current,
